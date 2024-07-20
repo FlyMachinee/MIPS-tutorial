@@ -1,0 +1,24 @@
+movi 4095 $sp
+
+! label .main
+  movi 2 $a0
+  call .abs
+  # break 1
+  sw $zero 0 $v0
+  movi -5 $a0
+  call .abs
+  # break 2
+  sw $zero 0 $v0
+  movi 0 $a0
+  call .abs
+  # break 3
+  sw $zero 0 $v0
+  hlt
+! label .abs
+  slti $a0 0 $t0
+  beq $t0 $zero .L1
+  sub $zero $a0 $v0
+  ret
+! label .L1
+  mov $a0 $v0
+  ret

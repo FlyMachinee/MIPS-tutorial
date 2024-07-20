@@ -1,0 +1,14 @@
+! define %sum $0
+! define %i $1
+! define %bound $2
+! define %arr $3
+
+! label .main
+	addi %bound 100 %bound
+! label .L1
+	addi %i 1 %i
+	add %sum %i %sum
+	beq %i %bound .L2
+	beq $0 $0 .L1
+! label .L2
+	sw %arr 0 %sum

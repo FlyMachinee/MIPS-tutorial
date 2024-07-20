@@ -1,0 +1,55 @@
+movi 2233 $sp
+
+! label .main
+movi 3 $a0
+movi 65 $a1
+movi 67 $a2
+movi 66 $a3
+call .hanoi
+# breakpoint 1
+cls $gp
+movi 8 $a0
+movi 65 $a1
+movi 67 $a2
+movi 66 $a3
+call .hanoi
+# breakpoint 2
+hlt
+
+! label .hanoi
+movi 1 $t0
+beq $a0 $t0 .trivial
+push $s0
+push $s1
+push $s2
+push $s3
+mov $a0 $s0
+mov $a1 $s1
+mov $a2 $s2
+mov $a3 $s3
+dec $a0
+mov $s2 $a3
+mov $s3 $a2
+call .hanoi
+sll $s2 16 $t0
+or $t0 $s1 $t0
+ori $t0 6656 $t0
+sw $gp 0 $t0
+inc $gp
+subi $s0 1 $a0
+mov $s1 $a3
+mov $s2 $a2
+mov $s3 $a1
+call .hanoi
+pop $s3
+pop $s2
+pop $s1
+pop $s0
+ret
+! label .trivial
+sll $a2 16 $t0
+or $t0 $a1 $t0
+ori $t0 6656 $t0
+sw $gp 0 $t0
+inc $gp
+ret

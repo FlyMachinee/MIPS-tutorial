@@ -1,0 +1,11 @@
+movi 8191 $sp
+! label .main
+	movi 5 $1
+	sw $0 0 $1
+	call .triple
+	sw $0 0 $1
+	hlt
+! label .triple
+	add $1 $1 $2
+	add $1 $2 $1
+	ret

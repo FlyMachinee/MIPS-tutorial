@@ -1,0 +1,23 @@
+! label .main
+	# $1 ← 5
+	addi $0 5 $1
+
+	# mem[0] ← $1
+	sw $0 0 $1
+
+	jal .triple
+
+	# mem[0] ← $1
+	sw $0 0 $1
+
+	# halt
+	beq $0 $0 -1
+
+! label .triple
+	# $2 ← $1 + $1
+	add $1 $1 $2
+
+	# $1 ← $1 + $2
+	add $1 $2 $1
+
+	jr $31

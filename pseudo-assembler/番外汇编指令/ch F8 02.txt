@@ -1,0 +1,38 @@
+movi 4444 $sp
+
+! label .main
+  sgti $s0 8 $t0
+  beq $t0 $zero 1
+  hlt
+  mov $s0 $a0
+  call .fib
+  # breakpoint
+  sw $s0 0 $v0
+  inc $s0
+  beq $0 $0 .main
+! label .fib
+  push $fp
+  mov $sp $fp
+  subi $sp 50 $sp
+  subi $fp 50 $t0
+  movi 0 $t2
+  sw $t0 0 $t2
+  movi 1 $t2
+  sw $t0 1 $t2
+  movi 2 $t1
+! label .loop
+  sgt $t1 $a0 $t2
+  beq $t2 $zero .else
+  add $t0 $a0 $t2
+  lw $t2 0 $v0  
+  mov $fp $sp
+  pop $fp
+  ret
+! label .else
+  add $t0 $t1 $t2
+  lw $t2 -1 $t3
+  lw $t2 -2 $t4
+  add $t3 $t4 $t3
+  sw $t2 0 $t3
+  inc $t1
+  beq $0 $0 .loop
